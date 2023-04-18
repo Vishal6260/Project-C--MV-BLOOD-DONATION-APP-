@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "786931523585",
+    "project_id": "mvblooddonationapp",
+    "storage_bucket": "mvblooddonationapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:786931523585:android:3c557ee6b528397f456000",
+        "android_client_info": {
+          "package_name": "com.vishal.mvblooddonationapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "786931523585-2djf6qlub83m0jo52c3s6vmvjdboh19n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBAHXMgarre7Abce13Cz6DV2KrgFU7Stzg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "786931523585-2djf6qlub83m0jo52c3s6vmvjdboh19n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
