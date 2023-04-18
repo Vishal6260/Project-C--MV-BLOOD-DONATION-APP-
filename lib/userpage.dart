@@ -73,7 +73,7 @@ class _UserState extends State<User> {
                 );
               },
               child: Text(
-                "Donor",
+                "As a Donor",
                 style: TextStyle(fontSize: 25, color: Colors.white),
               ),
             ),
@@ -99,7 +99,7 @@ class _UserState extends State<User> {
                 );
               },
               child: Text(
-                "Guest",
+                "As a Guest",
                 style: TextStyle(fontSize: 25, color: Colors.white),
               ),
             ),
