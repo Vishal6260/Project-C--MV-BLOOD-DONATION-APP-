@@ -50,7 +50,7 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        focusColor: Colors.red,
+        focusColor: Colors.white,
         onPressed: () {
           // Add logout functionality here
         },
@@ -64,6 +64,8 @@ class _HomePageState extends State<HomePage> {
 }
 
 class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -100,7 +102,7 @@ class HomeScreen extends StatelessWidget {
                       // );
                     },
                     child: Text(
-                      "Number of Donors : ",
+                      "Number of Donors : 00",
                       style: TextStyle(fontSize: 25, color: Colors.white),
                     ),
                   ),
@@ -126,7 +128,7 @@ class HomeScreen extends StatelessWidget {
                       // );
                     },
                     child: Text(
-                      "Number of Request : ",
+                      "Number of Request : 00 ",
                       style: TextStyle(fontSize: 25, color: Colors.white),
                     ),
                   ),
