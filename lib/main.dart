@@ -14,6 +14,10 @@ void main() async {
   await Firebase.initializeApp();
 
   runApp(MaterialApp(
+    theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(
+            seedColor: Color.fromARGB(255, 225, 22, 7),
+            primary: Color.fromARGB(255, 225, 22, 7))),
     debugShowCheckedModeBanner: false,
     routes: {
       '/': (context) => Splash(),

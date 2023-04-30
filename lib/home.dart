@@ -1,6 +1,10 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:mvblooddonationapp/services/database.dart';
+import 'package:mvblooddonationapp/userpage.dart';
+
+import 'models/user.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -49,16 +53,16 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        focusColor: Colors.white,
-        onPressed: () {
-          // Add logout functionality here
-        },
-        child: const Icon(
-          Icons.logout,
-          color: Colors.white,
-        ),
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   focusColor: Colors.white,
+      //   onPressed: () {
+      //     // Add logout functionality here
+      //   },
+      //   child: const Icon(
+      //     Icons.logout,
+      //     color: Colors.white,
+      //   ),
+      // ),
     );
   }
 }
@@ -243,8 +247,167 @@ class _SearchScreen extends State<SearchScreen> {
 class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text('Profile Screen'),
-    );
+    var theme = Theme.of(context);
+    return FutureBuilder<Myuser?>(
+        future: Database().loaduser(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData && snapshot.data != null) {
+            Myuser currentuser = snapshot.data!;
+            return Padding(
+              padding: const EdgeInsets.fromLTRB(5, 50, 5, 5),
+              child: Column(children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                              color: theme.colorScheme.primary, width: 6),
+                          shape: BoxShape.circle),
+                      child: Icon(
+                        Icons.person,
+                        color: theme.colorScheme.primary,
+                        size: 120,
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      currentuser.name!,
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.red,
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      currentuser.email!,
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.red,
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      currentuser.bloodgroup!,
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.red,
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      currentuser.location!,
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.red,
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      currentuser.phone!,
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.red,
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    style: ButtonStyle(
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                        ),
+                      ),
+                    ),
+                    onPressed: () {
+                      Database().signout();
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => User()),
+                      );
+                    },
+                    child: Text(
+                      "Logout",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 15, color: Colors.white),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    style: ButtonStyle(
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                        ),
+                      ),
+                    ),
+                    onPressed: () {},
+                    child: Text(
+                      "Delet Account",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 15, color: Colors.white),
+                    ),
+                  ),
+                ),
+              ]),
+            );
+          } else {
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CircularProgressIndicator(),
+                  ],
+                ),
+              ],
+            );
+          }
+        });
   }
 }

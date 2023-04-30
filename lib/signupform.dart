@@ -218,44 +218,84 @@ class SignUpState extends State {
                     SizedBox(
                       height: 30,
                     ),
-                    ElevatedButton(
-                      onPressed: () {
-                        if (_formkey.currentState!.validate()) {
-                          Myuser user = Myuser(
-                              id: "id",
-                              name: namecontroller.text,
-                              bloodgroup: selectedBloodGroup,
-                              location: selectedCity,
-                              email: emailcontroller.text,
-                              phone: mobilecontroller.text,
-                              password: passcontroller.text);
-                          Database().register(user);
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => Login()),
-                          );
-                        }
-                      },
-                      child: Text(
-                        "Submit",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 15, color: Colors.white),
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        style: ButtonStyle(
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20)),
+                            ),
+                          ),
+                        ),
+                        onPressed: () {
+                          if (_formkey.currentState!.validate()) {
+                            Myuser user = Myuser(
+                                id: "id",
+                                name: namecontroller.text,
+                                bloodgroup: selectedBloodGroup,
+                                location: selectedCity,
+                                email: emailcontroller.text,
+                                phone: mobilecontroller.text,
+                                password: passcontroller.text);
+                            Database().register(user);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => Login()),
+                            );
+                          }
+                        },
+                        child: Text(
+                          "Submit",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontSize: 15, color: Colors.white),
+                        ),
                       ),
                     ),
-                    ElevatedButton(
-                      style: ButtonStyle(),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => Login()),
-                        );
-                      },
-                      child: Text(
-                        "Have an account!",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 15, color: Colors.white),
-                      ),
-                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => Login()),
+                            );
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              "Have an account!",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(fontSize: 15, color: Colors.red),
+                            ),
+                          ),
+                        ),
+                      ],
+                    )
+                    // ElevatedButton(
+                    //   style: ButtonStyle(
+                    //     shape:
+                    //         MaterialStateProperty.all<RoundedRectangleBorder>(
+                    //       RoundedRectangleBorder(
+                    //         borderRadius: BorderRadius.all(Radius.circular(20)),
+                    //       ),
+                    //     ),
+                    //   ),
+                    //   onPressed: () {
+                    //     Navigator.push(
+                    //       context,
+                    //       MaterialPageRoute(builder: (context) => Login()),
+                    //     );
+                    //   },
+                    //   child: Text(
+                    //     "Have an account!",
+                    //     textAlign: TextAlign.center,
+                    //     style: TextStyle(fontSize: 15, color: Colors.white),
+                    //   ),
+                    // ),
                   ],
                 ),
               ),

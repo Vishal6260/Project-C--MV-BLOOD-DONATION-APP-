@@ -53,6 +53,27 @@ class Database {
     }
   }
 
+  Future<Myuser?> loaduser() async {
+    try {
+      var collection = FirebaseFirestore.instance.collection("usertable");
+      var snapshot = await collection.doc(_auth.currentUser!.uid).get();
+      if (snapshot.exists) {
+        Map<String, dynamic>? data = snapshot.data();
+        return Myuser(
+            id: collection.doc(_auth.currentUser!.uid).id,
+            name: data?["name"],
+            email: _auth.currentUser!.email,
+            bloodgroup: data?["bloodgroup"],
+            location: data?["location"],
+            phone: data?["phone"]);
+      } else {
+        return null;
+      }
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+  }
+
   // sign out
   Future signout() async {
     try {
