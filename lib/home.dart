@@ -35,7 +35,6 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Color.fromARGB(255, 201, 20, 7),
         selectedItemColor: Colors.white,
         unselectedItemColor: Colors.white30,
-        // fixedColor: Colors.white,
         currentIndex: _currentIndex,
         onTap: _onItemTapped,
         items: const [
@@ -81,18 +80,17 @@ class HomeScreen extends StatelessWidget {
             children: [
               Container(
                 decoration: BoxDecoration(color: Colors.white),
-                height: 175,
+                height: 200,
                 width: double.infinity,
                 child: Image.asset("assets/image/1.jpeg"),
               ),
-              // Text("dfsfsdfdsf"),
               SizedBox(
-                height: 20,
+                height: 5,
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Container(
-                  height: 100,
+                  height: 75,
                   width: 300,
                   decoration: BoxDecoration(
                     color: Color.fromARGB(255, 200, 20, 7),
@@ -118,7 +116,7 @@ class HomeScreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Container(
-                  height: 100,
+                  height: 75,
                   width: 300,
                   decoration: BoxDecoration(
                     color: Color.fromARGB(255, 200, 20, 7),
@@ -133,6 +131,58 @@ class HomeScreen extends StatelessWidget {
                     },
                     child: Text(
                       "Number of Request : 00 ",
+                      style: TextStyle(fontSize: 25, color: Colors.white),
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 15,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Container(
+                  height: 75,
+                  width: 275,
+                  decoration: BoxDecoration(
+                    color: Color.fromARGB(255, 200, 20, 7),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: TextButton(
+                    onPressed: () {
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(builder: (context) => SignUp()),
+                      // );
+                    },
+                    child: Text(
+                      "Donation History. ",
+                      style: TextStyle(fontSize: 25, color: Colors.white),
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 15,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Container(
+                  height: 75,
+                  width: 275,
+                  decoration: BoxDecoration(
+                    color: Color.fromARGB(255, 200, 20, 7),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: TextButton(
+                    onPressed: () {
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(builder: (context) => SignUp()),
+                      // );
+                    },
+                    child: Text(
+                      "Share App ",
                       style: TextStyle(fontSize: 25, color: Colors.white),
                     ),
                   ),
@@ -189,47 +239,50 @@ class _SearchScreen extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          Padding(
-            padding: EdgeInsets.all(20.0),
-            child: Container(
-              decoration: BoxDecoration(color: Colors.white),
-              height: 200,
-              width: 175,
-              child: Image.asset("assets/image/1.jpeg"),
+      body: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Column(
+          children: [
+            Padding(
+              padding: EdgeInsets.all(20.0),
+              child: Container(
+                decoration: BoxDecoration(color: Colors.white),
+                height: 200,
+                width: 175,
+                child: Image.asset("assets/image/1.jpeg"),
+              ),
             ),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Padding(
-            padding: EdgeInsets.all(0.0),
-            child: Container(
-              margin: EdgeInsets.all(15),
-              child: TextField(
-                onChanged: (query) => updateSearchQuery(query),
-                decoration: InputDecoration(
-                  hintText: 'Search for a blood donor',
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20)),
+            SizedBox(
+              height: .5,
+            ),
+            Padding(
+              padding: EdgeInsets.all(0.0),
+              child: Container(
+                margin: EdgeInsets.all(0),
+                child: TextField(
+                  onChanged: (query) => updateSearchQuery(query),
+                  decoration: InputDecoration(
+                    hintText: 'Search for a blood donor',
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20)),
+                  ),
                 ),
               ),
             ),
-          ),
-          Expanded(
-            child: ListView.builder(
-              itemCount: filterBloodDonors().length,
-              itemBuilder: (context, index) {
-                String donor = filterBloodDonors()[index];
-                return ListTile(
-                  title: Text(donor),
-                  leading: Icon(Icons.person),
-                );
-              },
+            Expanded(
+              child: ListView.builder(
+                itemCount: filterBloodDonors().length,
+                itemBuilder: (context, index) {
+                  String donor = filterBloodDonors()[index];
+                  return ListTile(
+                    title: Text(donor),
+                    leading: Icon(Icons.person),
+                  );
+                },
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -254,7 +307,7 @@ class ProfileScreen extends StatelessWidget {
           if (snapshot.hasData && snapshot.data != null) {
             Myuser currentuser = snapshot.data!;
             return Padding(
-              padding: const EdgeInsets.fromLTRB(5, 50, 5, 5),
+              padding: const EdgeInsets.fromLTRB(5, 150, 5, 5),
               child: Column(children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -273,7 +326,7 @@ class ProfileScreen extends StatelessWidget {
                   ],
                 ),
                 SizedBox(
-                  height: 10,
+                  height: 50,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -281,14 +334,15 @@ class ProfileScreen extends StatelessWidget {
                     Text(
                       currentuser.name!,
                       style: TextStyle(
-                        fontSize: 20,
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold,
                         color: Colors.red,
                       ),
                     ),
                   ],
                 ),
                 SizedBox(
-                  height: 10,
+                  height: 20,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -296,14 +350,15 @@ class ProfileScreen extends StatelessWidget {
                     Text(
                       currentuser.email!,
                       style: TextStyle(
-                        fontSize: 20,
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold,
                         color: Colors.red,
                       ),
                     ),
                   ],
                 ),
                 SizedBox(
-                  height: 10,
+                  height: 20,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -311,14 +366,15 @@ class ProfileScreen extends StatelessWidget {
                     Text(
                       currentuser.bloodgroup!,
                       style: TextStyle(
-                        fontSize: 20,
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold,
                         color: Colors.red,
                       ),
                     ),
                   ],
                 ),
                 SizedBox(
-                  height: 10,
+                  height: 20,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -326,14 +382,15 @@ class ProfileScreen extends StatelessWidget {
                     Text(
                       currentuser.location!,
                       style: TextStyle(
-                        fontSize: 20,
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold,
                         color: Colors.red,
                       ),
                     ),
                   ],
                 ),
                 SizedBox(
-                  height: 10,
+                  height: 20,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -341,14 +398,15 @@ class ProfileScreen extends StatelessWidget {
                     Text(
                       currentuser.phone!,
                       style: TextStyle(
-                        fontSize: 20,
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold,
                         color: Colors.red,
                       ),
                     ),
                   ],
                 ),
                 SizedBox(
-                  height: 10,
+                  height: 20,
                 ),
                 SizedBox(
                   width: double.infinity,
@@ -370,7 +428,7 @@ class ProfileScreen extends StatelessWidget {
                     child: Text(
                       "Logout",
                       textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 15, color: Colors.white),
+                      style: TextStyle(fontSize: 18, color: Colors.white),
                     ),
                   ),
                 ),
@@ -388,7 +446,7 @@ class ProfileScreen extends StatelessWidget {
                     child: Text(
                       "Delet Account",
                       textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 15, color: Colors.white),
+                      style: TextStyle(fontSize: 18, color: Colors.white),
                     ),
                   ),
                 ),

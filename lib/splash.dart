@@ -48,12 +48,12 @@ class _SplashState extends State<Splash> {
                 height: 10,
               ),
               Text(
-                "Save Lives",
+                "Save Lives!",
                 style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.normal,
                     color: Color.fromARGB(255, 200, 20, 7)),
-              )
+              ),
             ],
           ),
         ),

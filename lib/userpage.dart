@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'home.dart';
+import 'loginpage.dart';
 import 'signupform.dart';
 
 class User extends StatefulWidget {
@@ -48,7 +49,7 @@ class _UserState extends State<User> {
                 style: TextStyle(
                     fontSize: 25,
                     fontWeight: FontWeight.normal,
-                    color: Colors.red),
+                    color: Color.fromARGB(255, 200, 20, 7)),
               ),
             ),
           ),
@@ -101,6 +102,33 @@ class _UserState extends State<User> {
               child: Text(
                 "As a Guest",
                 style: TextStyle(fontSize: 25, color: Colors.white),
+              ),
+            ),
+          ),
+        ),
+        SizedBox(
+          height: 30,
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Container(
+            height: 60,
+            width: double.infinity,
+            decoration: BoxDecoration(
+              color: Colors.transparent,
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: TextButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Login()),
+                );
+              },
+              child: Text(
+                "Have an account!",
+                style: TextStyle(
+                    fontSize: 18, color: Color.fromARGB(255, 200, 20, 7)),
               ),
             ),
           ),
