@@ -1,24 +1,22 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:mvblooddonationapp/models/user.dart';
 import 'package:mvblooddonationapp/services/database.dart';
 import 'package:mvblooddonationapp/userpage.dart';
 
-import 'loginpage.dart';
+import 'models/request.dart';
 
-class SignUp extends StatefulWidget {
-  const SignUp({super.key});
+class MakeRequest extends StatefulWidget {
+  const MakeRequest({super.key});
 
   @override
-  SignUpState createState() => SignUpState();
+  State<MakeRequest> createState() => _MakeRequestState();
 }
 
-class SignUpState extends State {
+class _MakeRequestState extends State<MakeRequest> {
   final _formkey = GlobalKey<FormState>();
   final emailcontroller = TextEditingController();
   final namecontroller = TextEditingController();
   final mobilecontroller = TextEditingController();
-  final passcontroller = TextEditingController();
+  final remarkscontroller = TextEditingController();
   String selectedGender = 'M';
   String selectedBloodGroup = 'A+';
   String selectedCity = 'Male';
@@ -38,6 +36,9 @@ class SignUpState extends State {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text("Create Blood Request"),
+      ),
       body: Form(
         key: _formkey,
         child: Center(
@@ -50,14 +51,6 @@ class SignUpState extends State {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Sign up",
-                        style: TextStyle(
-                          fontSize: 25,
-                          color: Color.fromARGB(255, 200, 20, 7),
-                        )),
-                    SizedBox(
-                      height: 20,
-                    ),
                     TextFormField(
                       obscureText: false,
                       controller: namecontroller,
@@ -132,26 +125,6 @@ class SignUpState extends State {
                     ),
                     TextFormField(
                       obscureText: false,
-                      controller: emailcontroller,
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return "Email canot be empty";
-                        } else {
-                          return validateEmail(value);
-                        }
-                      },
-                      decoration: InputDecoration(
-                          contentPadding:
-                              EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-                          hintText: "Email ",
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30.0))),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    TextFormField(
-                      obscureText: false,
                       controller: mobilecontroller,
                       validator: (value) {
                         if (value!.isEmpty) {
@@ -168,51 +141,15 @@ class SignUpState extends State {
                               borderRadius: BorderRadius.circular(30.0))),
                     ),
                     SizedBox(
-                      height: 10,
-                    ),
-
-                    // DropdownButtonFormField<String>(
-                    //   value: selectedGender,
-                    //   decoration: InputDecoration(
-                    //     labelText: 'Gender',
-                    //     border: OutlineInputBorder(
-                    //         borderRadius: BorderRadius.circular(20),
-                    //         borderSide:
-                    //             BorderSide(color: Color.fromARGB(255, 220, 7, 7))),
-                    //   ),
-                    //   onChanged: (newValue) {
-                    //     setState(() {
-                    //       gender = newValue! as List<String>;
-                    //     });
-                    //   },
-                    //   items: [
-                    //     'Male',
-                    //     'Female',
-                    //   ]
-                    //       .map<DropdownMenuItem<String>>(
-                    //           (value) => DropdownMenuItem<String>(
-                    //                 value: value,
-                    //                 child: Text(value),
-                    //               ))
-                    //       .toList(),
-                    // ),
-                    SizedBox(
-                      height: 10,
+                      height: 20,
                     ),
                     TextFormField(
-                      obscureText: true,
-                      controller: passcontroller,
-                      validator: (value) {
-                        if (value!.length < 8) {
-                          return "Password must be more than 8 chractors";
-                        } else {
-                          return null;
-                        }
-                      },
+                      obscureText: false,
+                      controller: emailcontroller,
                       decoration: InputDecoration(
                           contentPadding:
                               EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-                          hintText: "Password ",
+                          hintText: "Remarks ",
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(30.0))),
                     ),
@@ -233,18 +170,18 @@ class SignUpState extends State {
                         ),
                         onPressed: () {
                           if (_formkey.currentState!.validate()) {
-                            Myuser user = Myuser(
+                            Request request = Request(
                                 id: "id",
                                 name: namecontroller.text,
                                 bloodgroup: selectedBloodGroup,
                                 location: selectedCity,
-                                email: emailcontroller.text,
                                 phone: mobilecontroller.text,
-                                password: passcontroller.text);
-                            Database().register(user);
+                                remarks: remarkscontroller.text);
+                            Database().writeRequestData(request);
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => Login()),
+                              MaterialPageRoute(
+                                  builder: (context) => UserPage()),
                             );
                           }
                         },
@@ -258,48 +195,6 @@ class SignUpState extends State {
                         ),
                       ),
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => Login()),
-                            );
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              "I Have an account!",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(fontSize: 15, color: Colors.red),
-                            ),
-                          ),
-                        ),
-                      ],
-                    )
-                    // ElevatedButton(
-                    //   style: ButtonStyle(
-                    //     shape:
-                    //         MaterialStateProperty.all<RoundedRectangleBorder>(
-                    //       RoundedRectangleBorder(
-                    //         borderRadius: BorderRadius.all(Radius.circular(20)),
-                    //       ),
-                    //     ),
-                    //   ),
-                    //   onPressed: () {
-                    //     Navigator.push(
-                    //       context,
-                    //       MaterialPageRoute(builder: (context) => Login()),
-                    //     );
-                    //   },
-                    //   child: Text(
-                    //     "Have an account!",
-                    //     textAlign: TextAlign.center,
-                    //     style: TextStyle(fontSize: 15, color: Colors.white),
-                    //   ),
-                    // ),
                   ],
                 ),
               ),
@@ -309,43 +204,4 @@ class SignUpState extends State {
       ),
     );
   }
-
-  String? validateEmail(String? value) {
-    const pattern = r"(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'"
-        r'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-'
-        r'\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*'
-        r'[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4]'
-        r'[0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9]'
-        r'[0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\'
-        r'x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])';
-    final regex = RegExp(pattern);
-
-    return value!.isNotEmpty && !regex.hasMatch(value)
-        ? 'Enter a valid email address'
-        : null;
-  }
-}
-
-showAlertDialog(BuildContext context, User user) {
-  Widget gotIt = ElevatedButton(
-    child: Text("Got It"),
-    onPressed: () {
-      Navigator.of(context, rootNavigator: true).pop('alert');
-    },
-  );
-
-  AlertDialog alert = AlertDialog(
-    title: Text("My title"),
-    content: Text("tet"),
-    actions: [
-      gotIt,
-    ],
-  );
-
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return alert;
-    },
-  );
 }

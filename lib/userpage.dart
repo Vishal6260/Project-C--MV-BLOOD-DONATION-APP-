@@ -4,14 +4,14 @@ import 'home.dart';
 import 'loginpage.dart';
 import 'signupform.dart';
 
-class User extends StatefulWidget {
-  const User({Key? key}) : super(key: key);
+class UserPage extends StatefulWidget {
+  const UserPage({Key? key}) : super(key: key);
 
   @override
-  State<User> createState() => _UserState();
+  State<UserPage> createState() => _UserPageState();
 }
 
-class _UserState extends State<User> {
+class _UserPageState extends State<UserPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,7 +43,7 @@ class _UserState extends State<User> {
               color: Colors.transparent,
               borderRadius: BorderRadius.circular(20),
             ),
-            child: Center(
+            child: const Center(
               child: Text(
                 "Pleas Select Your Choice!",
                 style: TextStyle(
@@ -66,7 +66,14 @@ class _UserState extends State<User> {
               color: Color.fromARGB(255, 200, 20, 7),
               borderRadius: BorderRadius.circular(20),
             ),
-            child: TextButton(
+            child: ElevatedButton(
+              style: ButtonStyle(
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                  ),
+                ),
+              ),
               onPressed: () {
                 Navigator.push(
                   context,
@@ -92,7 +99,14 @@ class _UserState extends State<User> {
               color: Color.fromARGB(255, 200, 20, 7),
               borderRadius: BorderRadius.circular(20),
             ),
-            child: TextButton(
+            child: ElevatedButton(
+              style: ButtonStyle(
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                  ),
+                ),
+              ),
               onPressed: () {
                 Navigator.push(
                   context,
@@ -126,7 +140,7 @@ class _UserState extends State<User> {
                 );
               },
               child: Text(
-                "Have an account!",
+                "I Have an account!",
                 style: TextStyle(
                     fontSize: 18, color: Color.fromARGB(255, 200, 20, 7)),
               ),

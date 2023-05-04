@@ -1,14 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
+import '../models/request.dart';
 import '../models/user.dart';
 // import '../models/user.dart' ;
 
 class Database {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final usercollection = FirebaseFirestore.instance.collection("usertable");
+  final requestcollection =
+      FirebaseFirestore.instance.collection("requesttable");
 
 // create user object based on firebase user
   Myuser _userFromFirebaseUser(User? user, Myuser? det) {
@@ -90,5 +92,78 @@ class Database {
       "location": user.location,
       "phone": user.phone,
     });
+  }
+
+  Stream<List<Myuser>> getuserlist() {
+    return usercollection.snapshots().map(_userlistfromsnapshot);
+  }
+
+  List<Myuser> _userlistfromsnapshot(QuerySnapshot snapshot) {
+    return snapshot.docs.map((e) {
+      return Myuser(
+        id: e.id,
+        name: e.get('name'),
+        bloodgroup: e.get('bloodgroup'),
+        location: e.get('location'),
+        phone: e.get('phone'),
+      );
+    }).toList();
+  }
+
+  Future<int> getDonorCount() async {
+    try {
+      QuerySnapshot<Object?> snapshot = await usercollection.get();
+      List<Myuser> users = snapshot.docs.map((e) {
+        return Myuser(
+          id: e.id,
+        );
+      }).toList();
+      return users.length;
+    } catch (e) {
+      debugPrint(e.toString());
+      return -1;
+    }
+  }
+
+  Future writeRequestData(Request request) async {
+    return await requestcollection.add({
+      "name": request.name,
+      "bloodgroup": request.bloodgroup,
+      "location": request.location,
+      "phone": request.phone,
+      "remarks": request.remarks,
+    });
+  }
+
+  Stream<List<Request>> requestlist() {
+    return requestcollection.snapshots().map(_requestlistfromsnapshot);
+  }
+
+  List<Request> _requestlistfromsnapshot(QuerySnapshot snapshot) {
+    return snapshot.docs.map((e) {
+      return Request(
+        id: e.id,
+        name: e.get('name'),
+        bloodgroup: e.get('bloodgroup'),
+        location: e.get('location'),
+        phone: e.get('phone'),
+        remarks: e.get('remarks'),
+      );
+    }).toList();
+  }
+
+  Future<int> getRequestcount() async {
+    try {
+      QuerySnapshot<Object?> snapshot = await requestcollection.get();
+      List<Request> users = snapshot.docs.map((e) {
+        return Request(
+          id: e.id,
+        );
+      }).toList();
+      return users.length;
+    } catch (e) {
+      debugPrint(e.toString());
+      return -1;
+    }
   }
 }

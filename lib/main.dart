@@ -16,12 +16,12 @@ void main() async {
   runApp(MaterialApp(
     theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
-            seedColor: Color.fromARGB(255, 225, 22, 7),
+            seedColor: Color(0xFFE11607),
             primary: Color.fromARGB(255, 225, 22, 7))),
     debugShowCheckedModeBanner: false,
     routes: {
       '/': (context) => Splash(),
-      '/user': (context) => User(),
+      '/user': (context) => UserPage(),
       '/signupform': (context) => SignUp(),
       '/loginform': (context) => Login(),
       '/home': (context) => HomePage(),
