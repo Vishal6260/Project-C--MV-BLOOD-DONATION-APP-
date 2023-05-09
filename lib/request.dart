@@ -20,8 +20,10 @@ class _RequestListState extends State<RequestList> {
       initialData: null,
       child: Scaffold(
           appBar: AppBar(
-            title: const Text("Available Request"),
-          ),
+              toolbarHeight: 70,
+              centerTitle: true,
+              backgroundColor: Color.fromARGB(255, 200, 20, 7),
+              title: const Text("Available Request")),
           body: LayoutBuilder(builder: (context, dimens) {
             final donors = Provider.of<List<Request>?>(context);
             List<Widget> childItems = [];
@@ -125,7 +127,7 @@ class _RequestCardState extends State<RequestCard> {
               ),
               IconButton(
                 icon: const Icon(Icons.phone_enabled),
-                color: Colors.green,
+                color: Colors.red,
                 onPressed: () {
                   _launchDialer(widget.user.phone!);
                 },

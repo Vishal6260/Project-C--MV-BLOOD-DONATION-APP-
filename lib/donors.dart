@@ -19,7 +19,14 @@ class _DonorsListState extends State<DonorsList> {
       initialData: null,
       child: Scaffold(
           appBar: AppBar(
+            toolbarHeight: 70,
+            backgroundColor: Color.fromARGB(255, 200, 20, 7),
             title: const Text("Available Donors"),
+            centerTitle: true,
+            flexibleSpace: Container(
+                decoration: const BoxDecoration(
+                    borderRadius:
+                        BorderRadius.only(bottomLeft: Radius.circular(20)))),
           ),
           body: LayoutBuilder(builder: (context, dimens) {
             final donors = Provider.of<List<Myuser>?>(context);
@@ -124,7 +131,7 @@ class _DonorCardState extends State<DonorCard> {
               ),
               IconButton(
                 icon: const Icon(Icons.phone_enabled),
-                color: Colors.green,
+                color: Colors.red,
                 onPressed: () {
                   _launchDialer(widget.user.phone!);
                 },

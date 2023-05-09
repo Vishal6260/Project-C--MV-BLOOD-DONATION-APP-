@@ -6,6 +6,7 @@ class Request {
     this.location,
     this.phone,
     this.remarks,
+    required this.isnotified,
     // this is optional when creating a new user model
   });
 
@@ -15,4 +16,5 @@ class Request {
   String? location;
   String? phone;
   String? remarks;
+  bool isnotified;
 }

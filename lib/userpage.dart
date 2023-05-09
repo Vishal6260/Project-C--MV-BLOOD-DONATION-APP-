@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mvblooddonationapp/services/database.dart';
 
 import 'home.dart';
 import 'loginpage.dart';
@@ -108,13 +109,14 @@ class _UserPageState extends State<UserPage> {
                 ),
               ),
               onPressed: () {
+                Database().signInguest();
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => HomePage()),
                 );
               },
               child: Text(
-                "As a Guest",
+                "As a Requester",
                 style: TextStyle(fontSize: 25, color: Colors.white),
               ),
             ),

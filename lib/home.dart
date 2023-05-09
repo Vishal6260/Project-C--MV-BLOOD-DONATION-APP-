@@ -8,6 +8,7 @@ import 'package:mvblooddonationapp/request.dart';
 import 'package:mvblooddonationapp/services/database.dart';
 import 'package:mvblooddonationapp/userpage.dart';
 
+import 'donationhistory.dart';
 import 'models/user.dart';
 
 class HomePage extends StatefulWidget {
@@ -176,32 +177,34 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                // SizedBox(
-                //   height: 15,
-                // ),
-                // Padding(
-                //   padding: const EdgeInsets.symmetric(horizontal: 20),
-                //   child: Container(
-                //     height: 75,
-                //     width: 275,
-                //     decoration: BoxDecoration(
-                //       color: Color.fromARGB(255, 200, 20, 7),
-                //       borderRadius: BorderRadius.circular(20),
-                //     ),
-                //     child: TextButton(
-                //       onPressed: () {
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(builder: (context) => SignUp()),
-                // );
-                //     },
-                //     child: Text(
-                //       "Donation History. ",
-                //       style: TextStyle(fontSize: 25, color: Colors.white),
-                //     ),
-                //   ),
-                // ),
               ),
+              // SizedBox(
+              //   height: 15,
+              // ),
+              // Padding(
+              //   padding: const EdgeInsets.symmetric(horizontal: 20),
+              //   child: Container(
+              //     height: 75,
+              //     width: 275,
+              //     decoration: BoxDecoration(
+              //       color: Color.fromARGB(255, 200, 20, 7),
+              //       borderRadius: BorderRadius.circular(20),
+              //     ),
+              //     child: TextButton(
+              //       onPressed: () {
+              //         Navigator.push(
+              //           context,
+              //           MaterialPageRoute(
+              //               builder: (context) => Donationhistory()),
+              //         );
+              //       },
+              //       child: Text(
+              //         "Donation History. ",
+              //         style: TextStyle(fontSize: 25, color: Colors.white),
+              //       ),
+              //     ),
+              //   ),
+              // ),
               SizedBox(
                 height: 15,
               ),
@@ -257,42 +260,42 @@ class GuestHomeScreen extends StatelessWidget {
               SizedBox(
                 height: 5,
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Container(
-                  height: 75,
-                  width: 300,
-                  decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 200, 20, 7),
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => DonorsList()),
-                      );
-                    },
-                    child: FutureBuilder<int>(
-                      future: Database().getDonorCount(),
-                      builder: (context, snapshot) {
-                        if (snapshot.hasData && snapshot.data != null) {
-                          return Text(
-                            "Number of Donors : ${snapshot.data ?? -1}",
-                            style: TextStyle(fontSize: 25, color: Colors.white),
-                          );
-                        } else {
-                          return CircularProgressIndicator();
-                        }
-                      },
-                      // child: Text(
-                      //   "Number of Donors : 00",
-                      //   style: TextStyle(fontSize: 25, color: Colors.white),
-                      // ),
-                    ),
-                  ),
-                ),
-              ),
+              // Padding(
+              //   padding: const EdgeInsets.symmetric(horizontal: 20),
+              //   child: Container(
+              //     height: 75,
+              //     width: 300,
+              //     decoration: BoxDecoration(
+              //       color: Color.fromARGB(255, 200, 20, 7),
+              //       borderRadius: BorderRadius.circular(20),
+              //     ),
+              //     child: TextButton(
+              //       onPressed: () {
+              //         Navigator.push(
+              //           context,
+              //           MaterialPageRoute(builder: (context) => DonorsList()),
+              //         );
+              //       },
+              //       child: FutureBuilder<int>(
+              //         future: Database().getDonorCount(),
+              //         builder: (context, snapshot) {
+              //           if (snapshot.hasData && snapshot.data != null) {
+              //             return Text(
+              //               "Number of Donors : ${snapshot.data ?? -1}",
+              //               style: TextStyle(fontSize: 25, color: Colors.white),
+              //             );
+              //           } else {
+              //             return CircularProgressIndicator();
+              //           }
+              //         },
+              //         // child: Text(
+              //         //   "Number of Donors : 00",
+              //         //   style: TextStyle(fontSize: 25, color: Colors.white),
+              //         // ),
+              //       ),
+              //     ),
+              //   ),
+              // ),
               SizedBox(
                 height: 20,
               ),
@@ -397,25 +400,25 @@ class _SearchScreen extends State<SearchScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.all(20.0),
+        padding: const EdgeInsets.all(15.0),
         child: Column(
           children: [
+            // Padding(
+            //   padding: EdgeInsets.all(20.0),
+            //   child: Container(
+            //     decoration: BoxDecoration(color: Colors.white),
+            //     height: 200,
+            //     width: 175,
+            //     child: Image.asset("assets/image/1.jpeg"),
+            //   ),
+            // ),
+            // SizedBox(
+            //   height: .5,
+            // ),
             Padding(
-              padding: EdgeInsets.all(20.0),
+              padding: EdgeInsets.all(30.0),
               child: Container(
-                decoration: BoxDecoration(color: Colors.white),
-                height: 200,
-                width: 175,
-                child: Image.asset("assets/image/1.jpeg"),
-              ),
-            ),
-            SizedBox(
-              height: .5,
-            ),
-            Padding(
-              padding: EdgeInsets.all(0.0),
-              child: Container(
-                margin: EdgeInsets.all(0),
+                margin: EdgeInsets.all(10),
                 child: TextField(
                   onChanged: (query) => updateSearchQuery(query),
                   decoration: InputDecoration(
@@ -592,24 +595,34 @@ class ProfileScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                // SizedBox(
-                //   width: double.infinity,
-                //   child: ElevatedButton(
-                //     style: ButtonStyle(
-                //       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                //         RoundedRectangleBorder(
-                //           borderRadius: BorderRadius.all(Radius.circular(20)),
-                //         ),
-                //       ),
-                //     ),
-                //     onPressed: () {},
-                //     child: Text(
-                //       "Delet Account",
-                //       textAlign: TextAlign.center,
-                //       style: TextStyle(fontSize: 18, color: Colors.white),
-                //     ),
-                //   ),
-                // ),
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    style: ButtonStyle(
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                        ),
+                      ),
+                    ),
+                    onPressed: () {
+                      // Database().signout();
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => Donationhistory()),
+                      );
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(12),
+                      child: Text(
+                        "Donation History",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 18, color: Colors.white),
+                      ),
+                    ),
+                  ),
+                ),
               ]),
             );
           } else {

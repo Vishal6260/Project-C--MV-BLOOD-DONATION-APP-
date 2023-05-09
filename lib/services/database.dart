@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import '../models/donationhistory.dart';
 import '../models/request.dart';
 import '../models/user.dart';
 // import '../models/user.dart' ;
@@ -11,6 +12,8 @@ class Database {
   final usercollection = FirebaseFirestore.instance.collection("usertable");
   final requestcollection =
       FirebaseFirestore.instance.collection("requesttable");
+  final donationhistorycollection =
+      FirebaseFirestore.instance.collection("Donationhistorytable");
 
 // create user object based on firebase user
   Myuser _userFromFirebaseUser(User? user, Myuser? det) {
@@ -31,6 +34,17 @@ class Database {
     try {
       UserCredential result = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
+      User? user = result.user;
+      return _userFromFirebaseUser(user!, null);
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+  }
+
+  // sign in with guest
+  Future signInguest() async {
+    try {
+      UserCredential result = await _auth.signInAnonymously();
       User? user = result.user;
       return _userFromFirebaseUser(user!, null);
     } catch (e) {
@@ -148,6 +162,7 @@ class Database {
         location: e.get('location'),
         phone: e.get('phone'),
         remarks: e.get('remarks'),
+        isnotified: e.get('isnotified'),
       );
     }).toList();
   }
@@ -158,6 +173,7 @@ class Database {
       List<Request> users = snapshot.docs.map((e) {
         return Request(
           id: e.id,
+          isnotified: false,
         );
       }).toList();
       return users.length;
@@ -165,5 +181,11 @@ class Database {
       debugPrint(e.toString());
       return -1;
     }
+  }
+
+  Future writedonationhistory(donationhistory history) async {
+    return await donationhistorycollection.add({
+      "date": history.date,
+    });
   }
 }

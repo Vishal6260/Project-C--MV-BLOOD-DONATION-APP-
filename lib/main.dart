@@ -8,6 +8,8 @@ import 'package:mvblooddonationapp/userpage.dart';
 
 import 'loginpage.dart';
 
+// late Size mq;
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 

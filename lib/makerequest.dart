@@ -37,6 +37,9 @@ class _MakeRequestState extends State<MakeRequest> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
+        toolbarHeight: 70,
+        backgroundColor: Color.fromARGB(255, 200, 20, 7),
         title: Text("Create Blood Request"),
       ),
       body: Form(
@@ -69,7 +72,7 @@ class _MakeRequestState extends State<MakeRequest> {
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(20.0))),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     DropdownButtonFormField<String>(
@@ -176,7 +179,8 @@ class _MakeRequestState extends State<MakeRequest> {
                                 bloodgroup: selectedBloodGroup,
                                 location: selectedCity,
                                 phone: mobilecontroller.text,
-                                remarks: remarkscontroller.text);
+                                remarks: remarkscontroller.text,
+                                isnotified: false);
                             Database().writeRequestData(request);
                             Navigator.push(
                               context,
