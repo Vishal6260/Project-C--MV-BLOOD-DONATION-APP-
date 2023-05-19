@@ -22,7 +22,7 @@ class _RequestListState extends State<RequestList> {
           appBar: AppBar(
               toolbarHeight: 70,
               centerTitle: true,
-              backgroundColor: Color.fromARGB(255, 200, 20, 7),
+              backgroundColor: const Color.fromARGB(255, 200, 20, 7),
               title: const Text("Available Request")),
           body: LayoutBuilder(builder: (context, dimens) {
             final donors = Provider.of<List<Request>?>(context);

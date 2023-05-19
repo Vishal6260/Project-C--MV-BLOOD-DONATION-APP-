@@ -13,7 +13,6 @@ class MakeRequest extends StatefulWidget {
 
 class _MakeRequestState extends State<MakeRequest> {
   final _formkey = GlobalKey<FormState>();
-  final emailcontroller = TextEditingController();
   final namecontroller = TextEditingController();
   final mobilecontroller = TextEditingController();
   final remarkscontroller = TextEditingController();
@@ -39,8 +38,8 @@ class _MakeRequestState extends State<MakeRequest> {
       appBar: AppBar(
         centerTitle: true,
         toolbarHeight: 70,
-        backgroundColor: Color.fromARGB(255, 200, 20, 7),
-        title: Text("Create Blood Request"),
+        backgroundColor: const Color.fromARGB(255, 200, 20, 7),
+        title: const Text("Create Blood Request"),
       ),
       body: Form(
         key: _formkey,
@@ -67,7 +66,7 @@ class _MakeRequestState extends State<MakeRequest> {
                       decoration: InputDecoration(
                           // labelText: 'Name',
                           contentPadding:
-                              EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                              const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
                           hintText: "Name",
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(20.0))),
@@ -79,7 +78,7 @@ class _MakeRequestState extends State<MakeRequest> {
                       value: selectedBloodGroup,
                       decoration: InputDecoration(
                         contentPadding:
-                            EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                            const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
                         labelText: 'Select you Blood Group',
                         // labelText: 'Blood Group',
                         border: OutlineInputBorder(
@@ -98,14 +97,14 @@ class _MakeRequestState extends State<MakeRequest> {
                                   ))
                           .toList(),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     DropdownButtonFormField<String>(
                       value: selectedCity,
                       decoration: InputDecoration(
                         contentPadding:
-                            EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                            const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
                         labelText: 'Location',
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(30)),
@@ -123,7 +122,7 @@ class _MakeRequestState extends State<MakeRequest> {
                                   ))
                           .toList(),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     TextFormField(
@@ -138,25 +137,25 @@ class _MakeRequestState extends State<MakeRequest> {
                       },
                       decoration: InputDecoration(
                           contentPadding:
-                              EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                              const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
                           hintText: "Mobile",
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(30.0))),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     TextFormField(
                       obscureText: false,
-                      controller: emailcontroller,
+                      controller: remarkscontroller,
                       decoration: InputDecoration(
                           contentPadding:
-                              EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                              const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
                           hintText: "Remarks ",
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(30.0))),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 30,
                     ),
                     SizedBox(
@@ -165,7 +164,7 @@ class _MakeRequestState extends State<MakeRequest> {
                         style: ButtonStyle(
                           shape:
                               MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
+                            const RoundedRectangleBorder(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(20)),
                             ),
@@ -174,23 +173,24 @@ class _MakeRequestState extends State<MakeRequest> {
                         onPressed: () {
                           if (_formkey.currentState!.validate()) {
                             Request request = Request(
-                                id: "id",
-                                name: namecontroller.text,
-                                bloodgroup: selectedBloodGroup,
-                                location: selectedCity,
-                                phone: mobilecontroller.text,
-                                remarks: remarkscontroller.text,
-                                isnotified: false);
+                              id: "id",
+                              name: namecontroller.text,
+                              bloodgroup: selectedBloodGroup,
+                              location: selectedCity,
+                              phone: mobilecontroller.text,
+                              remarks: remarkscontroller.text,
+                              isnotified: false,
+                            );
                             Database().writeRequestData(request);
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => UserPage()),
+                                  builder: (context) => const UserPage()),
                             );
                           }
                         },
-                        child: Padding(
-                          padding: const EdgeInsets.all(12),
+                        child: const Padding(
+                          padding: EdgeInsets.all(12),
                           child: Text(
                             "Submit",
                             textAlign: TextAlign.center,

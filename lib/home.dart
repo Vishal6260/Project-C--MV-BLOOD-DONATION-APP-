@@ -4,15 +4,20 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mvblooddonationapp/donors.dart';
 import 'package:mvblooddonationapp/makerequest.dart';
+import 'package:mvblooddonationapp/models/request.dart';
 import 'package:mvblooddonationapp/request.dart';
 import 'package:mvblooddonationapp/services/database.dart';
+import 'package:mvblooddonationapp/services/notification.dart';
 import 'package:mvblooddonationapp/userpage.dart';
 
 import 'donationhistory.dart';
 import 'models/user.dart';
 
 class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _HomePageState createState() => _HomePageState();
 }
 
@@ -25,7 +30,8 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    if (_auth.currentUser != null) {
+
+    if (!_auth.currentUser!.isAnonymous) {
       _pages = [
         HomeScreen(),
         SearchScreen(),
@@ -35,7 +41,7 @@ class _HomePageState extends State<HomePage> {
       _pages = [
         GuestHomeScreen(),
         SearchScreen(),
-        ProfileScreen(),
+        //ProfileScreen(),
       ];
     }
   }
@@ -48,6 +54,23 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    if (!_auth.currentUser!.isAnonymous) {
+      Database().requestlistsnapshot().then((value) {
+        Database().loaduser().then((userdata) {
+          for (Request iteam in value) {
+            if (!iteam.isnotified && iteam.bloodgroup == userdata!.bloodgroup) {
+              NotificationService().showNotification(
+                  id: DateTime.now().millisecond,
+                  title: 'Donation Request',
+                  body:
+                      "${iteam.name} is requesting blood donation from ${iteam.location}. Contact them on ${iteam.phone}");
+              Database().updateNotified(iteam.id);
+            }
+          }
+        });
+      });
+    }
+
     return Scaffold(
       body: _pages[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
@@ -57,20 +80,35 @@ class _HomePageState extends State<HomePage> {
         unselectedItemColor: Colors.white30,
         currentIndex: _currentIndex,
         onTap: _onItemTapped,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: 'Search',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
-          ),
-        ],
+        items: !_auth.currentUser!.isAnonymous
+            ? [
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.home),
+                  label: 'Home',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.search),
+                  label: 'Search',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.person),
+                  label: 'Profile',
+                ),
+              ]
+            : [
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.home),
+                  label: 'Home',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.search),
+                  label: 'Search',
+                ),
+                // BottomNavigationBarItem(
+                //   icon: Icon(Icons.person),
+                //   label: 'Profile',
+                // ),
+              ],
       ),
       // floatingActionButton: FloatingActionButton(
       //   focusColor: Colors.white,
@@ -91,7 +129,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: double.infinity,
       child: Padding(
         padding: const EdgeInsets.fromLTRB(5, 30, 5, 5),
@@ -244,7 +282,7 @@ class GuestHomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: double.infinity,
       child: Padding(
         padding: const EdgeInsets.fromLTRB(5, 30, 5, 5),
@@ -259,45 +297,6 @@ class GuestHomeScreen extends StatelessWidget {
               ),
               SizedBox(
                 height: 5,
-              ),
-              // Padding(
-              //   padding: const EdgeInsets.symmetric(horizontal: 20),
-              //   child: Container(
-              //     height: 75,
-              //     width: 300,
-              //     decoration: BoxDecoration(
-              //       color: Color.fromARGB(255, 200, 20, 7),
-              //       borderRadius: BorderRadius.circular(20),
-              //     ),
-              //     child: TextButton(
-              //       onPressed: () {
-              //         Navigator.push(
-              //           context,
-              //           MaterialPageRoute(builder: (context) => DonorsList()),
-              //         );
-              //       },
-              //       child: FutureBuilder<int>(
-              //         future: Database().getDonorCount(),
-              //         builder: (context, snapshot) {
-              //           if (snapshot.hasData && snapshot.data != null) {
-              //             return Text(
-              //               "Number of Donors : ${snapshot.data ?? -1}",
-              //               style: TextStyle(fontSize: 25, color: Colors.white),
-              //             );
-              //           } else {
-              //             return CircularProgressIndicator();
-              //           }
-              //         },
-              //         // child: Text(
-              //         //   "Number of Donors : 00",
-              //         //   style: TextStyle(fontSize: 25, color: Colors.white),
-              //         // ),
-              //       ),
-              //     ),
-              //   ),
-              // ),
-              SizedBox(
-                height: 20,
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -458,6 +457,8 @@ class _SearchScreen extends State<SearchScreen> {
 // }
 
 class ProfileScreen extends StatelessWidget {
+  const ProfileScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
@@ -632,7 +633,7 @@ class ProfileScreen extends StatelessWidget {
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
+                  children: const [
                     CircularProgressIndicator(),
                   ],
                 ),

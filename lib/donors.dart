@@ -20,7 +20,7 @@ class _DonorsListState extends State<DonorsList> {
       child: Scaffold(
           appBar: AppBar(
             toolbarHeight: 70,
-            backgroundColor: Color.fromARGB(255, 200, 20, 7),
+            backgroundColor: const Color.fromARGB(255, 200, 20, 7),
             title: const Text("Available Donors"),
             centerTitle: true,
             flexibleSpace: Container(

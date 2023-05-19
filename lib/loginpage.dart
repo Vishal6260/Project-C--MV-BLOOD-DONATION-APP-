@@ -34,7 +34,7 @@ class LoginState extends State {
         }
       },
       decoration: InputDecoration(
-          contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+          contentPadding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
           hintText: "Email ",
           border:
               OutlineInputBorder(borderRadius: BorderRadius.circular(30.0))),
@@ -51,7 +51,7 @@ class LoginState extends State {
         }
       },
       decoration: InputDecoration(
-          contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+          contentPadding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
           hintText: "Password ",
           border:
               OutlineInputBorder(borderRadius: BorderRadius.circular(30.0))),
@@ -60,10 +60,10 @@ class LoginState extends State {
     final loginButon = Material(
       elevation: 5.0,
       borderRadius: BorderRadius.circular(20.0),
-      color: Color.fromARGB(255, 200, 20, 7),
+      color: const Color.fromARGB(255, 200, 20, 7),
       child: MaterialButton(
         minWidth: MediaQuery.of(context).size.width,
-        padding: EdgeInsets.fromLTRB(50.0, 15.0, 50.0, 15.0),
+        padding: const EdgeInsets.fromLTRB(50.0, 15.0, 50.0, 15.0),
         onPressed: () async {
           if (_formkey.currentState!.validate()) {
             dynamic result = await Database()
@@ -74,17 +74,18 @@ class LoginState extends State {
                 Errormsg = "Invalid credential";
               });
             } else {
+              // ignore: use_build_context_synchronously
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => HomePage()),
+                MaterialPageRoute(builder: (context) => const HomePage()),
               );
             }
           }
         },
-        child: Text(
-          "Submit",
+        child: const Text(
+          "Login",
           textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 15, color: Colors.white),
+          style: TextStyle(fontSize: 20, color: Colors.white),
         ),
       ),
     );
@@ -101,22 +102,22 @@ class LoginState extends State {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("Login",
+                  const Text("Login",
                       style: TextStyle(
                         fontSize: 25,
                         fontWeight: FontWeight.bold,
                         color: Color.fromARGB(255, 200, 20, 7),
                       )),
-                  SizedBox(height: 25.0),
+                  const SizedBox(height: 25.0),
                   emailField,
-                  SizedBox(height: 25.0),
+                  const SizedBox(height: 25.0),
                   passwordField,
-                  SizedBox(
+                  const SizedBox(
                     height: 35.0,
                   ),
                   Text(Errormsg),
                   loginButon,
-                  SizedBox(
+                  const SizedBox(
                     height: 50.0,
                   ),
                 ],
@@ -146,15 +147,15 @@ class LoginState extends State {
 
 showAlertDialog(BuildContext context, User user) {
   Widget gotIt = ElevatedButton(
-    child: Text("Got It"),
+    child: const Text("Got It"),
     onPressed: () {
       Navigator.of(context, rootNavigator: true).pop('alert');
     },
   );
 
   AlertDialog alert = AlertDialog(
-    title: Text("My title"),
-    content: Text("tet"),
+    title: const Text("My title"),
+    content: const Text("tet"),
     actions: [
       gotIt,
     ],

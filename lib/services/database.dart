@@ -88,6 +88,7 @@ class Database {
     } catch (e) {
       debugPrint(e.toString());
     }
+    return null;
   }
 
   // sign out
@@ -140,17 +141,30 @@ class Database {
   }
 
   Future writeRequestData(Request request) async {
+    print("isnotifiedi cr :: ${request.isnotified}");
     return await requestcollection.add({
       "name": request.name,
       "bloodgroup": request.bloodgroup,
       "location": request.location,
       "phone": request.phone,
       "remarks": request.remarks,
+      "isnotified": request.isnotified,
+    });
+  }
+
+  Future updateNotified(String itemID) {
+    return requestcollection.doc(itemID).update({
+      "isnotified": true,
     });
   }
 
   Stream<List<Request>> requestlist() {
     return requestcollection.snapshots().map(_requestlistfromsnapshot);
+  }
+
+  Future<List<Request>> requestlistsnapshot() async {
+    var s = await requestcollection.get();
+    return _requestlistfromsnapshot(s);
   }
 
   List<Request> _requestlistfromsnapshot(QuerySnapshot snapshot) {
@@ -162,7 +176,9 @@ class Database {
         location: e.get('location'),
         phone: e.get('phone'),
         remarks: e.get('remarks'),
-        isnotified: e.get('isnotified'),
+        isnotified: e.data.toString().contains('isnotified')
+            ? e.get('isnotified')
+            : false,
       );
     }).toList();
   }
@@ -186,6 +202,21 @@ class Database {
   Future writedonationhistory(donationhistory history) async {
     return await donationhistorycollection.add({
       "date": history.date,
+      "userid": history.userid,
     });
+  }
+
+  //load donation histroy
+  Stream<List<donationhistory>> loadDonationHistory() {
+    return donationhistorycollection.snapshots().map(_donationListFromSnapshot);
+  }
+
+  List<donationhistory> _donationListFromSnapshot(QuerySnapshot snapshot) {
+    return snapshot.docs.map((e) {
+      return donationhistory(
+          id: e.id,
+          date: DateTime.parse(e.get('date').toDate().toString()),
+          userid: e.get('userid'));
+    }).toList();
   }
 }
