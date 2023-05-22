@@ -50,12 +50,12 @@ class SignUpState extends State {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Sign up",
+                    const Text("Sign up",
                         style: TextStyle(
                           fontSize: 25,
                           color: Color.fromARGB(255, 200, 20, 7),
                         )),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     TextFormField(
@@ -71,19 +71,19 @@ class SignUpState extends State {
                       decoration: InputDecoration(
                           // labelText: 'Name',
                           contentPadding:
-                              EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                              const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
                           hintText: "Name",
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(20.0))),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     DropdownButtonFormField<String>(
                       value: selectedBloodGroup,
                       decoration: InputDecoration(
                         contentPadding:
-                            EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                            const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
                         labelText: 'Select you Blood Group',
                         // labelText: 'Blood Group',
                         border: OutlineInputBorder(
@@ -102,14 +102,14 @@ class SignUpState extends State {
                                   ))
                           .toList(),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     DropdownButtonFormField<String>(
                       value: selectedCity,
                       decoration: InputDecoration(
                         contentPadding:
-                            EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                            const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
                         labelText: 'Location',
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(30)),
@@ -127,7 +127,7 @@ class SignUpState extends State {
                                   ))
                           .toList(),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     TextFormField(
@@ -142,12 +142,12 @@ class SignUpState extends State {
                       },
                       decoration: InputDecoration(
                           contentPadding:
-                              EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                              const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
                           hintText: "Email ",
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(30.0))),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     TextFormField(
@@ -162,12 +162,12 @@ class SignUpState extends State {
                       },
                       decoration: InputDecoration(
                           contentPadding:
-                              EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                              const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
                           hintText: "Mobile",
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(30.0))),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
 
@@ -196,7 +196,7 @@ class SignUpState extends State {
                     //               ))
                     //       .toList(),
                     // ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     TextFormField(
@@ -211,12 +211,12 @@ class SignUpState extends State {
                       },
                       decoration: InputDecoration(
                           contentPadding:
-                              EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                              const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
                           hintText: "Password ",
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(30.0))),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 30,
                     ),
                     SizedBox(
@@ -225,7 +225,7 @@ class SignUpState extends State {
                         style: ButtonStyle(
                           shape:
                               MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
+                            const RoundedRectangleBorder(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(20)),
                             ),
@@ -244,12 +244,13 @@ class SignUpState extends State {
                             Database().register(user);
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => Login()),
+                              MaterialPageRoute(
+                                  builder: (context) => const Login()),
                             );
                           }
                         },
-                        child: Padding(
-                          padding: const EdgeInsets.all(12),
+                        child: const Padding(
+                          padding: EdgeInsets.all(12),
                           child: Text(
                             "Submit",
                             textAlign: TextAlign.center,
@@ -265,13 +266,14 @@ class SignUpState extends State {
                           onTap: () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => Login()),
+                              MaterialPageRoute(
+                                  builder: (context) => const Login()),
                             );
                           },
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
+                          child: const Padding(
+                            padding: EdgeInsets.all(8.0),
                             child: Text(
-                              "I Have an account!",
+                              "I Have an account!  Login!",
                               textAlign: TextAlign.center,
                               style: TextStyle(fontSize: 15, color: Colors.red),
                             ),
@@ -328,15 +330,15 @@ class SignUpState extends State {
 
 showAlertDialog(BuildContext context, User user) {
   Widget gotIt = ElevatedButton(
-    child: Text("Got It"),
+    child: const Text("Got It"),
     onPressed: () {
       Navigator.of(context, rootNavigator: true).pop('alert');
     },
   );
 
   AlertDialog alert = AlertDialog(
-    title: Text("My title"),
-    content: Text("tet"),
+    title: const Text("My title"),
+    content: const Text("tet"),
     actions: [
       gotIt,
     ],

@@ -10,6 +10,7 @@ import 'package:mvblooddonationapp/services/database.dart';
 import 'package:mvblooddonationapp/services/notification.dart';
 import 'package:mvblooddonationapp/userpage.dart';
 
+import 'about us.dart';
 import 'donationhistory.dart';
 import 'models/user.dart';
 
@@ -257,13 +258,13 @@ class HomeScreen extends StatelessWidget {
                   ),
                   child: TextButton(
                     onPressed: () {
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(builder: (context) => SignUp()),
-                      // );
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => AboutUsPage()),
+                      );
                     },
                     child: Text(
-                      "Share App ",
+                      "About Us ",
                       style: TextStyle(fontSize: 25, color: Colors.white),
                     ),
                   ),
@@ -335,13 +336,13 @@ class GuestHomeScreen extends StatelessWidget {
                   ),
                   child: TextButton(
                     onPressed: () {
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(builder: (context) => SignUp()),
-                      // );
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => AboutUsPage()),
+                      );
                     },
                     child: Text(
-                      "Share App ",
+                      "About Us ",
                       style: TextStyle(fontSize: 25, color: Colors.white),
                     ),
                   ),
@@ -398,51 +399,38 @@ class _SearchScreen extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        toolbarHeight: 70,
+        backgroundColor: const Color.fromARGB(255, 200, 20, 7),
+        title: const Text("Pleas Type Blood Group"),
+      ),
       body: Padding(
-        padding: const EdgeInsets.all(15.0),
-        child: Column(
-          children: [
-            // Padding(
-            //   padding: EdgeInsets.all(20.0),
-            //   child: Container(
-            //     decoration: BoxDecoration(color: Colors.white),
-            //     height: 200,
-            //     width: 175,
-            //     child: Image.asset("assets/image/1.jpeg"),
-            //   ),
-            // ),
-            // SizedBox(
-            //   height: .5,
-            // ),
-            Padding(
-              padding: EdgeInsets.all(30.0),
-              child: Container(
-                margin: EdgeInsets.all(10),
-                child: TextField(
-                  onChanged: (query) => updateSearchQuery(query),
-                  decoration: InputDecoration(
-                    hintText: 'Search for a blood donor',
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20)),
-                  ),
-                ),
-              ),
+        padding: EdgeInsets.all(30.0),
+        child: Container(
+          margin: EdgeInsets.all(10),
+          child: TextField(
+            onChanged: (query) => updateSearchQuery(query),
+            decoration: InputDecoration(
+              hintText: 'Search for a blood donor',
+              border:
+                  OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
             ),
-            Expanded(
-              child: ListView.builder(
-                itemCount: filterBloodDonors().length,
-                itemBuilder: (context, index) {
-                  String donor = filterBloodDonors()[index];
-                  return ListTile(
-                    title: Text(donor),
-                    leading: Icon(Icons.person),
-                  );
-                },
-              ),
-            ),
-          ],
+          ),
         ),
       ),
+      // Expanded(
+      //   child: ListView.builder(
+      //     itemCount: filterBloodDonors().length,
+      //     itemBuilder: (context, index) {
+      //       String donor = filterBloodDonors()[index];
+      //       return ListTile(
+      //         title: Text(donor),
+      //         leading: Icon(Icons.person)
+      //       );
+      //     },
+      //   ),
+      // ),
     );
   }
 }

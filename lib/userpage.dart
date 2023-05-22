@@ -143,7 +143,7 @@ class _UserPageState extends State<UserPage> {
                   );
                 },
                 child: const Text(
-                  "I Have an account!",
+                  "I Have an account! Login ",
                   style: TextStyle(
                       fontSize: 18, color: Color.fromARGB(255, 200, 20, 7)),
                 ),

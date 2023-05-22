@@ -70,20 +70,20 @@ class _DonationhistoryState extends State<Donationhistory> {
                     );
                   },
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 15,
                 ),
                 ElevatedButton(
                   style: ButtonStyle(
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
+                      const RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(20)),
                       ),
                     ),
                   ),
                   onPressed: () => _showDatePicker(),
-                  child: Padding(
-                    padding: const EdgeInsets.all(12),
+                  child: const Padding(
+                    padding: EdgeInsets.all(12),
                     child: Text(
                       "Record Donation",
                       textAlign: TextAlign.center,
