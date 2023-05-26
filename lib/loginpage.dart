@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:mvblooddonationapp/forgotpassword.dart';
 import 'package:mvblooddonationapp/services/database.dart';
-import 'package:mvblooddonationapp/userpage.dart';
 
 import 'home.dart';
 
@@ -16,12 +16,14 @@ class LoginState extends State {
   final _formkey = GlobalKey<FormState>();
   final emailcontroller = TextEditingController();
   final passcontroller = TextEditingController();
+  // ignore: non_constant_identifier_names
   String Errormsg = "";
 
   get mobilecontroller => null;
 
   get namecontroller => null;
 
+  @override
   Widget build(BuildContext context) {
     final emailField = TextFormField(
       obscureText: false,
@@ -75,7 +77,7 @@ class LoginState extends State {
               });
             } else {
               // ignore: use_build_context_synchronously
-              Navigator.push(
+              Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(builder: (context) => const HomePage()),
               );
@@ -117,6 +119,19 @@ class LoginState extends State {
                   ),
                   Text(Errormsg),
                   loginButon,
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const ForgotPassword()),
+                        );
+                      },
+                      child: const Text("Forgot Password",
+                          style: TextStyle(color: Colors.red, fontSize: 15))),
                   const SizedBox(
                     height: 50.0,
                   ),

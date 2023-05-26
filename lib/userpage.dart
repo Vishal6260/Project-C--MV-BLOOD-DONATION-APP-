@@ -111,6 +111,7 @@ class _UserPageState extends State<UserPage> {
                 ),
                 onPressed: () async {
                   await Database().signInguest();
+                  // ignore: use_build_context_synchronously
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(builder: (context) => const HomePage()),
@@ -137,13 +138,13 @@ class _UserPageState extends State<UserPage> {
               ),
               child: TextButton(
                 onPressed: () {
-                  Navigator.push(
+                  Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(builder: (context) => const Login()),
                   );
                 },
                 child: const Text(
-                  "I Have an account! Login ",
+                  "I have an account! Login.",
                   style: TextStyle(
                       fontSize: 18, color: Color.fromARGB(255, 200, 20, 7)),
                 ),

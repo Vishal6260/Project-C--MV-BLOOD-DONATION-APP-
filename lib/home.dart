@@ -25,7 +25,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
   final FirebaseAuth _auth = FirebaseAuth.instance;
-
   List<Widget> _pages = [];
 
   @override
@@ -34,7 +33,7 @@ class _HomePageState extends State<HomePage> {
 
     if (!_auth.currentUser!.isAnonymous) {
       _pages = [
-        HomeScreen(),
+        Home(),
         SearchScreen(),
         ProfileScreen(),
       ];
@@ -55,23 +54,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    if (!_auth.currentUser!.isAnonymous) {
-      Database().requestlistsnapshot().then((value) {
-        Database().loaduser().then((userdata) {
-          for (Request iteam in value) {
-            if (!iteam.isnotified && iteam.bloodgroup == userdata!.bloodgroup) {
-              NotificationService().showNotification(
-                  id: DateTime.now().millisecond,
-                  title: 'Donation Request',
-                  body:
-                      "${iteam.name} is requesting blood donation from ${iteam.location}. Contact them on ${iteam.phone}");
-              Database().updateNotified(iteam.id);
-            }
-          }
-        });
-      });
-    }
-
     return Scaffold(
       body: _pages[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
@@ -105,31 +87,37 @@ class _HomePageState extends State<HomePage> {
                   icon: Icon(Icons.search),
                   label: 'Search',
                 ),
-                // BottomNavigationBarItem(
-                //   icon: Icon(Icons.person),
-                //   label: 'Profile',
-                // ),
               ],
       ),
-      // floatingActionButton: FloatingActionButton(
-      //   focusColor: Colors.white,
-      //   onPressed: () {
-      //     // Add logout functionality here
-      //   },
-      //   child: const Icon(
-      //     Icons.logout,
-      //     color: Colors.white,
-      //   ),
-      // ),
     );
   }
 }
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+class Home extends StatelessWidget {
+  const Home({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final FirebaseAuth auth = FirebaseAuth.instance;
+
+    if (!auth.currentUser!.isAnonymous) {
+      Database().requestlistsnapshot().then((value) {
+        Database().loaduser().then((userdata) {
+          for (Request iteam in value) {
+            if (!iteam.isnotified && iteam.bloodgroup == userdata!.bloodgroup) {
+              NotificationService().showNotification(
+                id: DateTime.now().millisecond,
+                title: 'Donation Request',
+                body:
+                    "${iteam.name} is requesting blood donation from ${iteam.location}. Contact them on ${iteam.phone}",
+              );
+
+              Database().updateNotified(iteam.id);
+            }
+          }
+        });
+      });
+    }
     return SizedBox(
       height: double.infinity,
       child: Padding(
@@ -174,10 +162,6 @@ class HomeScreen extends StatelessWidget {
                           return CircularProgressIndicator();
                         }
                       },
-                      // child: Text(
-                      //   "Number of Donors : 00",
-                      //   style: TextStyle(fontSize: 25, color: Colors.white),
-                      // ),
                     ),
                   ),
                 ),
@@ -217,33 +201,6 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              // SizedBox(
-              //   height: 15,
-              // ),
-              // Padding(
-              //   padding: const EdgeInsets.symmetric(horizontal: 20),
-              //   child: Container(
-              //     height: 75,
-              //     width: 275,
-              //     decoration: BoxDecoration(
-              //       color: Color.fromARGB(255, 200, 20, 7),
-              //       borderRadius: BorderRadius.circular(20),
-              //     ),
-              //     child: TextButton(
-              //       onPressed: () {
-              //         Navigator.push(
-              //           context,
-              //           MaterialPageRoute(
-              //               builder: (context) => Donationhistory()),
-              //         );
-              //       },
-              //       child: Text(
-              //         "Donation History. ",
-              //         style: TextStyle(fontSize: 25, color: Colors.white),
-              //       ),
-              //     ),
-              //   ),
-              // ),
               SizedBox(
                 height: 15,
               ),
@@ -365,35 +322,35 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreen extends State<SearchScreen> {
-  // Declare a list of blood donors
-  List<String> bloodDonors = [
-    // 'John Doe',
-    // 'Jane Smith',
-  ];
-
-  // Declare a variable to store the search query
-  String searchQuery = '';
+  List<Myuser> searchresult = [];
 
   // Method to update the search query when the user types in the search bar
-  void updateSearchQuery(String query) {
-    setState(() {
-      searchQuery = query;
-    });
+  void searchDonor(String query, List<Myuser>? users) {
+    if (users != null) {
+      setState(() {
+        searchresult = filterDonors(users, query, query, query, query);
+      });
+    }
   }
 
-  // Method to filter the list of blood donors based on the search query
-  List<String> filterBloodDonors() {
-    List<String> filteredList = [];
-    if (searchQuery.isNotEmpty) {
-      for (String donor in bloodDonors) {
-        if (donor.toLowerCase().contains(searchQuery.toLowerCase())) {
-          filteredList.add(donor);
-        }
-      }
-    } else {
-      filteredList = bloodDonors;
-    }
-    return filteredList;
+  List<Myuser> filterDonors(List<Myuser> models, String name, String bloodGroup,
+      String location, String phone) {
+    return models.where((model) {
+      final nameMatch = model.name!.toLowerCase().contains(name.toLowerCase());
+      final bloodGroupMatch =
+          model.bloodgroup!.toLowerCase() == bloodGroup.toLowerCase();
+      final locationMatch =
+          model.location!.toLowerCase() == location.toLowerCase();
+      final phoneMatch =
+          model.phone!.toLowerCase().contains(phone.toLowerCase());
+
+      return nameMatch || bloodGroupMatch || locationMatch || phoneMatch;
+    }).toList();
+  }
+
+  @override
+  void initState() {
+    super.initState();
   }
 
   @override
@@ -405,44 +362,50 @@ class _SearchScreen extends State<SearchScreen> {
         backgroundColor: const Color.fromARGB(255, 200, 20, 7),
         title: const Text("Pleas Type Blood Group"),
       ),
-      body: Padding(
-        padding: EdgeInsets.all(30.0),
-        child: Container(
-          margin: EdgeInsets.all(10),
-          child: TextField(
-            onChanged: (query) => updateSearchQuery(query),
-            decoration: InputDecoration(
-              hintText: 'Search for a blood donor',
-              border:
-                  OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
-            ),
-          ),
-        ),
+      body: FutureBuilder(
+        future: Database().getDonors(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData && snapshot.data != null) {
+            final bloodDonors = snapshot.data;
+            return Padding(
+              padding: EdgeInsets.all(30.0),
+              child: Column(
+                children: [
+                  Container(
+                    margin: EdgeInsets.all(10),
+                    child: TextField(
+                      onChanged: (query) {
+                        searchDonor(query, bloodDonors);
+                      },
+                      decoration: InputDecoration(
+                        hintText: 'Search for a blood donor',
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20)),
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: searchresult.length,
+                      itemBuilder: (context, index) {
+                        Myuser donor = searchresult[index];
+                        return ListTile(
+                            title: Text("${donor.name}, ${donor.phone}"),
+                            leading: Icon(Icons.person));
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            );
+          } else {
+            return CircularProgressIndicator();
+          }
+        },
       ),
-      // Expanded(
-      //   child: ListView.builder(
-      //     itemCount: filterBloodDonors().length,
-      //     itemBuilder: (context, index) {
-      //       String donor = filterBloodDonors()[index];
-      //       return ListTile(
-      //         title: Text(donor),
-      //         leading: Icon(Icons.person)
-      //       );
-      //     },
-      //   ),
-      // ),
     );
   }
 }
-
-// class SearchScreen extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Center(
-//       child: Text('Search Screen'),
-//     );
-//   }
-// }
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -456,8 +419,19 @@ class ProfileScreen extends StatelessWidget {
           if (snapshot.hasData && snapshot.data != null) {
             Myuser currentuser = snapshot.data!;
             return Padding(
-              padding: const EdgeInsets.fromLTRB(5, 150, 5, 5),
+              padding: const EdgeInsets.fromLTRB(5, 70, 5, 5),
               child: Column(children: [
+                Text(
+                  "Profile",
+                  style: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.primary),
+                ),
+                SizedBox(
+                  height: 50,
+                ),
+                //from here
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -474,6 +448,7 @@ class ProfileScreen extends StatelessWidget {
                     ),
                   ],
                 ),
+                //to here
                 SizedBox(
                   height: 50,
                 ),

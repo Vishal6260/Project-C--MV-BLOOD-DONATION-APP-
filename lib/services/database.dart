@@ -109,6 +109,20 @@ class Database {
     });
   }
 
+  Future<List<Myuser>> getDonors() async {
+    QuerySnapshot<Object?> snapshot = await usercollection.get();
+    List<Myuser> users = snapshot.docs.map((e) {
+      return Myuser(
+        id: e.id,
+        name: e.get('name'),
+        bloodgroup: e.get('bloodgroup'),
+        location: e.get('location'),
+        phone: e.get('phone'),
+      );
+    }).toList();
+    return users;
+  }
+
   Stream<List<Myuser>> getuserlist() {
     return usercollection.snapshots().map(_userlistfromsnapshot);
   }

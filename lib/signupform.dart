@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mvblooddonationapp/models/user.dart';
 import 'package:mvblooddonationapp/services/database.dart';
-import 'package:mvblooddonationapp/userpage.dart';
 
 import 'loginpage.dart';
 
@@ -170,32 +169,6 @@ class SignUpState extends State {
                     const SizedBox(
                       height: 10,
                     ),
-
-                    // DropdownButtonFormField<String>(
-                    //   value: selectedGender,
-                    //   decoration: InputDecoration(
-                    //     labelText: 'Gender',
-                    //     border: OutlineInputBorder(
-                    //         borderRadius: BorderRadius.circular(20),
-                    //         borderSide:
-                    //             BorderSide(color: Color.fromARGB(255, 220, 7, 7))),
-                    //   ),
-                    //   onChanged: (newValue) {
-                    //     setState(() {
-                    //       gender = newValue! as List<String>;
-                    //     });
-                    //   },
-                    //   items: [
-                    //     'Male',
-                    //     'Female',
-                    //   ]
-                    //       .map<DropdownMenuItem<String>>(
-                    //           (value) => DropdownMenuItem<String>(
-                    //                 value: value,
-                    //                 child: Text(value),
-                    //               ))
-                    //       .toList(),
-                    // ),
                     const SizedBox(
                       height: 10,
                     ),
@@ -281,27 +254,6 @@ class SignUpState extends State {
                         ),
                       ],
                     )
-                    // ElevatedButton(
-                    //   style: ButtonStyle(
-                    //     shape:
-                    //         MaterialStateProperty.all<RoundedRectangleBorder>(
-                    //       RoundedRectangleBorder(
-                    //         borderRadius: BorderRadius.all(Radius.circular(20)),
-                    //       ),
-                    //     ),
-                    //   ),
-                    //   onPressed: () {
-                    //     Navigator.push(
-                    //       context,
-                    //       MaterialPageRoute(builder: (context) => Login()),
-                    //     );
-                    //   },
-                    //   child: Text(
-                    //     "Have an account!",
-                    //     textAlign: TextAlign.center,
-                    //     style: TextStyle(fontSize: 15, color: Colors.white),
-                    //   ),
-                    // ),
                   ],
                 ),
               ),

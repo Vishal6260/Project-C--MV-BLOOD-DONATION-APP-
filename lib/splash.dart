@@ -18,7 +18,7 @@ class _SplashState extends State<Splash> {
   }
 
   startTimer() {
-    var duration = Duration(seconds: 4);
+    var duration = const Duration(seconds: 4);
     return Timer(duration, route);
   }
 
@@ -33,26 +33,39 @@ class _SplashState extends State<Splash> {
         child: Container(
           color: Colors.white,
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
+              const SizedBox(
+                height: 250,
+              ),
               Image.asset("assets/image/2.jpeg"),
-              SizedBox(height: 10),
-              Text(
+              const SizedBox(height: 10),
+              const Text(
                 "MV Blood Donation App",
                 style: TextStyle(
                     fontSize: 35,
                     color: Color.fromARGB(255, 200, 20, 7),
                     fontWeight: FontWeight.bold),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
-              Text(
+              const Text(
                 "Save Lives!",
                 style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.normal,
                     color: Color.fromARGB(255, 200, 20, 7)),
+              ),
+              const SizedBox(
+                height: 220,
+              ),
+              Text(
+                "Developed By Vishal",
+                style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 12,
+                    color: Theme.of(context).colorScheme.primary),
               ),
             ],
           ),
