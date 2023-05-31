@@ -127,12 +127,22 @@ class Home extends StatelessWidget {
             children: [
               Container(
                 decoration: BoxDecoration(color: Colors.white),
-                height: 200,
+                height: 210,
                 width: double.infinity,
                 child: Image.asset("assets/image/1.jpeg"),
               ),
               SizedBox(
-                height: 5,
+                height: 7,
+              ),
+              Text(
+                "MV Blood Donation",
+                style: TextStyle(
+                    fontSize: 40,
+                    color: Color.fromARGB(255, 200, 20, 7),
+                    fontWeight: FontWeight.bold),
+              ),
+              SizedBox(
+                height: 50,
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -424,7 +434,7 @@ class ProfileScreen extends StatelessWidget {
                 Text(
                   "Profile",
                   style: TextStyle(
-                      fontSize: 30,
+                      fontSize: 40,
                       fontWeight: FontWeight.bold,
                       color: Theme.of(context).colorScheme.primary),
                 ),
@@ -460,7 +470,7 @@ class ProfileScreen extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 25,
                         fontWeight: FontWeight.bold,
-                        color: Colors.red,
+                        color: Color.fromARGB(255, 200, 20, 7),
                       ),
                     ),
                   ],
@@ -476,7 +486,7 @@ class ProfileScreen extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 25,
                         fontWeight: FontWeight.bold,
-                        color: Colors.red,
+                        color: Color.fromARGB(255, 200, 20, 7),
                       ),
                     ),
                   ],
@@ -492,7 +502,7 @@ class ProfileScreen extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 25,
                         fontWeight: FontWeight.bold,
-                        color: Colors.red,
+                        color: Color.fromARGB(255, 200, 20, 7),
                       ),
                     ),
                   ],
@@ -508,7 +518,7 @@ class ProfileScreen extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 25,
                         fontWeight: FontWeight.bold,
-                        color: Colors.red,
+                        color: Color.fromARGB(255, 200, 20, 7),
                       ),
                     ),
                   ],
@@ -524,7 +534,7 @@ class ProfileScreen extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 25,
                         fontWeight: FontWeight.bold,
-                        color: Colors.red,
+                        color: Color.fromARGB(255, 200, 20, 7),
                       ),
                     ),
                   ],
