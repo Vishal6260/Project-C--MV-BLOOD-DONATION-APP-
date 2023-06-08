@@ -117,7 +117,7 @@ class _RequestCardState extends State<RequestCard> {
                         widget.user.bloodgroup ?? "err",
                         style: const TextStyle(
                           fontSize: 19,
-                          color: Colors.red,
+                          color: Color.fromARGB(255, 200, 20, 7),
                           fontWeight: FontWeight.w700,
                         ),
                       ),
@@ -127,7 +127,7 @@ class _RequestCardState extends State<RequestCard> {
               ),
               IconButton(
                 icon: const Icon(Icons.phone_enabled),
-                color: Colors.red,
+                color: const Color.fromARGB(255, 200, 20, 7),
                 onPressed: () {
                   _launchDialer(widget.user.phone!);
                 },

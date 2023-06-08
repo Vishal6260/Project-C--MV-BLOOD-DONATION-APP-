@@ -130,7 +130,7 @@ class LoginState extends State {
                               builder: (context) => const ForgotPassword()),
                         );
                       },
-                      child: const Text("Forgot Password",
+                      child: const Text("Forgot Password!",
                           style: TextStyle(color: Colors.red, fontSize: 15))),
                   const SizedBox(
                     height: 50.0,

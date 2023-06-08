@@ -50,7 +50,7 @@ class _UserPageState extends State<UserPage> {
                   "Pleas Select Your Choice!",
                   style: TextStyle(
                       fontSize: 25,
-                      fontWeight: FontWeight.normal,
+                      fontWeight: FontWeight.bold,
                       color: Color.fromARGB(255, 200, 20, 7)),
                 ),
               ),
@@ -146,7 +146,7 @@ class _UserPageState extends State<UserPage> {
                 child: const Text(
                   "I have an account! Login.",
                   style: TextStyle(
-                      fontSize: 18, color: Color.fromARGB(255, 200, 20, 7)),
+                      fontSize: 15, color: Color.fromARGB(255, 200, 20, 7)),
                 ),
               ),
             ),

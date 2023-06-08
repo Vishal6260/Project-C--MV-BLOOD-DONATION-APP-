@@ -253,7 +253,7 @@ class GuestHomeScreen extends StatelessWidget {
     return SizedBox(
       height: double.infinity,
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(5, 30, 5, 5),
+        padding: const EdgeInsets.fromLTRB(5, 50, 5, 5),
         child: Center(
           child: Column(
             children: [
@@ -264,7 +264,17 @@ class GuestHomeScreen extends StatelessWidget {
                 child: Image.asset("assets/image/1.jpeg"),
               ),
               SizedBox(
-                height: 5,
+                height: 10,
+              ),
+              Text(
+                "MV Blood Donation",
+                style: TextStyle(
+                    fontSize: 40,
+                    color: Color.fromARGB(255, 200, 20, 7),
+                    fontWeight: FontWeight.bold),
+              ),
+              SizedBox(
+                height: 30,
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -290,7 +300,7 @@ class GuestHomeScreen extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                height: 15,
+                height: 20,
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -432,7 +442,7 @@ class ProfileScreen extends StatelessWidget {
               padding: const EdgeInsets.fromLTRB(5, 70, 5, 5),
               child: Column(children: [
                 Text(
-                  "Profile",
+                  "My Profile",
                   style: TextStyle(
                       fontSize: 40,
                       fontWeight: FontWeight.bold,
